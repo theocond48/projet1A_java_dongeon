@@ -13,6 +13,7 @@ public class Main {
     RenderEngine renderEngine;
     GameEngine gameEngine;
     PhysicEngine physicEngine;
+    TrapManager trapManager;
 
     public Main() throws Exception{
         displayZoneFrame = new JFrame("Java Labs");
@@ -25,6 +26,7 @@ public class Main {
         renderEngine = new RenderEngine(displayZoneFrame);
         physicEngine = new PhysicEngine();
         gameEngine = new GameEngine(hero);
+        trapManager = new TrapManager(hero);
 
         renderEngine.setGameEngine(gameEngine);
 
@@ -45,6 +47,25 @@ public class Main {
         renderEngine.addToRenderList(hero);
         physicEngine.addToMovingSpriteList(hero);
         physicEngine.setEnvironment(level.getSolidSpriteList());
+        // HUD de vie
+        HUD hud = new HUD(hero.getHealthManager());
+        renderEngine.addToRenderList(hud);
+
+        // SYSTÈME DE PIÈGES
+        Trap trap1 = new Trap(150, 400,
+                ImageIO.read(new File("./img/trap.png")), 32, 32);
+
+        Trap trap2 = new Trap(250, 200,
+                ImageIO.read(new File("./img/trap.png")), 32, 32);
+
+        // Ajouter les pièges au TrapManager
+        trapManager.addTrap(trap1);
+        trapManager.addTrap(trap2);
+
+        // Ajouter les pièges au rendu
+        renderEngine.addToRenderList(trap1);
+        renderEngine.addToRenderList(trap2);
+
 
         displayZoneFrame.addKeyListener(gameEngine);
     }

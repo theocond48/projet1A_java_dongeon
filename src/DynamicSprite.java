@@ -8,9 +8,11 @@ public class DynamicSprite extends SolidSprite{
     private double timeBetweenFrame = 250;
     private boolean isWalking =true;
     private final int spriteSheetNumberOfColumn = 10;
+    private HealthManager healthManager;
 
     public DynamicSprite(double x, double y, Image image, double width, double height) {
         super(x, y, image, width, height);
+        this.healthManager = new HealthManager(6);
     }
 
     private boolean isMovingPossible(ArrayList<Sprite> environment){
@@ -66,6 +68,11 @@ public class DynamicSprite extends SolidSprite{
             move();
         }
     }
+
+    public HealthManager getHealthManager() {
+        return healthManager;
+    }
+
 
     @Override
     public void draw(Graphics g) {

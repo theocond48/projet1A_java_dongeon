@@ -8,6 +8,11 @@ public class GameEngine implements Engine, KeyListener {
     private DynamicSprite hero;
     private long startTime;
     private long elapsedTime;
+    private TrapManager trapManager;
+
+    public void setTrapManager(TrapManager trapManager) {
+        this.trapManager = trapManager;
+    }
 
     public GameEngine(DynamicSprite hero) {
         this.hero = hero;
@@ -24,6 +29,16 @@ public class GameEngine implements Engine, KeyListener {
     @Override
     public void update() {
         if (currentState == GameState.PLAYING) {
+            // 1. On demande au TrapManager de vérifier les collisions
+            if (trapManager != null) {
+                trapManager.update();
+            }
+
+            // 2. On vérifie si le héros est mort
+            if (!hero.getHealthManager().isAlive()) {
+                currentState = GameState.GAMEOVER;
+                elapsedTime = getTimerValue(); // On fige le temps final
+            }
         }
     }
 
