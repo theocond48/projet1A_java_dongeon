@@ -27,6 +27,7 @@ public class Main {
         physicEngine = new PhysicEngine();
         gameEngine = new GameEngine(hero);
         trapManager = new TrapManager(hero);
+        gameEngine.setTrapManager(trapManager);
 
         renderEngine.setGameEngine(gameEngine);
 
