@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class RenderEngine extends JPanel implements Engine {
     private ArrayList<Displayable> renderList;
     private GameEngine gameEngine;
+    private long lastTime = System.nanoTime();
+    private double fps = 0;
 
     public RenderEngine(JFrame jFrame) {
         renderList = new ArrayList<>();
@@ -27,6 +29,13 @@ public class RenderEngine extends JPanel implements Engine {
 
     @Override
     public void paint(Graphics g) {
+        long currentTime = System.nanoTime();
+        double gap = (currentTime - lastTime) / 1_000_000_000.0;
+        lastTime = currentTime;
+        if (gap > 0) {
+            fps = 1.0 / gap;
+        }
+
         super.paint(g);
 
         if (gameEngine == null) return;
@@ -43,6 +52,7 @@ public class RenderEngine extends JPanel implements Engine {
             }
             drawTimer(g);
         }
+        drawFPS(g);
     }
 
     private void drawTitleScreen(Graphics g) {
@@ -70,6 +80,12 @@ public class RenderEngine extends JPanel implements Engine {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 15));
         g.drawString("Temps : " + gameEngine.getTimerValue() + "s", 20, 30);
+    }
+
+    private void drawFPS(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.PLAIN, 12));
+        g.drawString("FPS: " + (int)fps, getWidth() - 60, 20);
     }
 
     @Override
