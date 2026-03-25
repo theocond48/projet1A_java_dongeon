@@ -26,6 +26,8 @@ public class Main {
         physicEngine = new PhysicEngine();
         gameEngine = new GameEngine(hero);
 
+        renderEngine.setGameEngine(gameEngine);
+
         Timer renderTimer = new Timer(50,(time)-> renderEngine.update());
         Timer gameTimer = new Timer(50,(time)-> gameEngine.update());
         Timer physicTimer = new Timer(50,(time)-> physicEngine.update());
