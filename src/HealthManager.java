@@ -25,4 +25,8 @@ public class HealthManager {
     public boolean isAlive() {
         return currentHealth > 0;
     }
+
+    public void reset() { this.currentHealth = maxHealth; }
 }
+
+

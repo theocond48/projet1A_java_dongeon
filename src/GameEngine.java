@@ -57,6 +57,10 @@ public class GameEngine implements Engine, KeyListener {
 
         if (currentState == GameState.GAMEOVER) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                hero.getHealthManager().reset();
+                if (trapManager != null) {
+                    trapManager.resetAllTraps();
+                }
                 currentState = GameState.TITLE;
             }
             return;
