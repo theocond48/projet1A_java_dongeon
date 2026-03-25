@@ -79,7 +79,7 @@ public class RenderEngine extends JPanel implements Engine {
     private void drawTimer(Graphics g) {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 15));
-        g.drawString("Temps : " + gameEngine.getTimerValue() + "s", 20, 30);
+        g.drawString("Temps : " + gameEngine.getTimerValue() + "s", 20, 60);
     }
 
     private void drawFPS(Graphics g) {
